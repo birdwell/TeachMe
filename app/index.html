@@ -17,12 +17,9 @@
     <link rel="stylesheet" href="css/custom.min.css" media="screen" charset="utf-8">
     <script>document.write('<base href="' + document.location + '" />');</script>
     <link rel="stylesheet" href="http://mbenford.github.io/ngTagsInput/css/ng-tags-input.min.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
-    <script src="http://mbenford.github.io/ngTagsInput/js/ng-tags-input.min.js"></script>
-    <script src="app.js"></script>
 </head>
 
-<body>
+<body ng-controller="TeachmeCtrl">
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -46,7 +43,7 @@
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>
-                <span ng-controller="TeachmeCtrl">
+                <span>
                     <ul class="nav navbar-nav navbar-right">
             			<li class="btn btn-default" ng-click="logout()" ng-show="authData !== null">Log out</li>
             			<span ng-show="authData === null">
@@ -54,37 +51,37 @@
             				<li class="btn btn-default" ng-click="mode='registering'">Register</li>
             			</span>
                     </ul>
-                    <div modal="authData===null && (mode=='registering' || mode=='loggingin')" class="modal fade" close="mode=null">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" ng-click="mode=null" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <h4 class="modal-title">Log In</h4>
-                                </div>
-                                <form name="userForm">
-                                    <div class="modal-body">
-                                        <label style="display:block;">Email:<input class="form-control" type="email" ng-model="user.email" placeholder="Email"></label>
-                                        <label style="display:block;">Password:<input class="form-control" type="password" ng-model="user.password" placeholder="Password"></label>
-                                        <label style="display:block;" ng-show="mode=='registering'" class="ng-hide">Confirm Password:<input class="form-control" type="password" ng-model="confpass" placeholder="Confirm Password"></label>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button class="btn btn-primary" ng-show="mode=='loggingin'" ng-click="login()">Log in</button>
-                                        <button class="btn btn-primary" ng-show="mode=='registering'" ng-click="register()">Register</button>
-                                        <button class="btn btn-default" ng-click="mode=null">Cancel</button>
-                                    </div>
-                                </form>
-                            </div>
-                            <!-- /.modal-content -->
-                        </div>
-                        <!-- /.modal-dialog -->
-                    </div>
-                    <!-- /.modal -->
                 </span>
             </div>
         </div>
     </nav>
+	<div modal="authData===null && (mode=='registering' || mode=='loggingin')" class="modal fade" close="mode=null">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" ng-click="mode=null" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">Log In</h4>
+				</div>
+				<form name="userForm">
+					<div class="modal-body">
+						<label style="display:block;">Email:<input class="form-control" type="email" ng-model="user.email" placeholder="Email"></label>
+						<label style="display:block;">Password:<input class="form-control" type="password" ng-model="user.password" placeholder="Password"></label>
+						<label style="display:block;" ng-show="mode=='registering'" class="ng-hide">Confirm Password:<input class="form-control" type="password" ng-model="confpass" placeholder="Confirm Password"></label>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-primary" ng-show="mode=='loggingin'" ng-click="login()">Log in</button>
+						<button class="btn btn-primary" ng-show="mode=='registering'" ng-click="register()">Register</button>
+						<button class="btn btn-default" ng-click="mode=null">Cancel</button>
+					</div>
+				</form>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
 
     <div ng-view class="mainContent container"></div>
 
@@ -98,7 +95,7 @@
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <!-- Firebase -->
     <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
-
+	
     <!-- AngularFire -->
     <script src="https://cdn.firebase.com/libs/angularfire/1.1.2/angularfire.min.js"></script>
     <script src="js/ctrls/user.js"></script>
@@ -108,6 +105,7 @@
     <script src="components/version/version.js"></script>
     <script src="components/version/version-directive.js"></script>
     <script src="components/version/interpolate-filter.js"></script>
+	<script src="http://mbenford.github.io/ngTagsInput/js/ng-tags-input.min.js"></script>
 </body>
 
 </html>
