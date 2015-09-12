@@ -38,15 +38,15 @@ angular.module('myApp.view1', ['ngRoute','firebase','ui.bootstrap.modal','ngTags
           console.log("Authenticated user with uid:", $scope.authData.uid);
         }
 
-        ref.child('users').child($scope.authData.uid).child('collections').set({
-            title: title,
-            type: type,
-		    desc: desc || '',
-		    tags: tags || [],
-            authorId: $scope.authData.uid
-        }, onComplete);
-
-
+		var cid = ref.child('collections').push({
+			title: title,
+			type: type,
+			desc: desc || '',
+			tags: tags || [],
+			authorId: $scope.authData.uid
+		}, onComplete).key();
+		
+        ref.child('users').child($scope.authData.uid).child('collectionIDs').push(cid);
     };
     var onComplete = function(error) {
       if (error) {
@@ -59,7 +59,6 @@ angular.module('myApp.view1', ['ngRoute','firebase','ui.bootstrap.modal','ngTags
     $scope.open = function() {
       $scope.showModal = true;
       $scope.collection = {};
-      $scope.collection.type = 'References';
     };
 
     $scope.ok = function() {
