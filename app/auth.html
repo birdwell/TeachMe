@@ -8,15 +8,31 @@
 		<script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
 		<script src="https://cdn.firebase.com/libs/angularfire/1.1.2/angularfire.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/ng-tags-input/3.0.0/ng-tags-input.min.js"></script>
+		<script src="js/angular-ui-bootstrap-modal.js"></script>
 		
 		<script>
-			var app = angular.module("TeachmeApp",["firebase"]);
+			/*
+			//Firebase Security Rules
+			{
+			  "rules": {
+				"users": {
+				  "$uid": {
+					// grants write access to the owner of this user account whose uid must exactly match the key ($uid)
+					".write": "auth !== null && auth.uid === $uid"
+				  },
+				  ".read": true
+				}
+			  }
+			}
+			*/
+			
+			var app = angular.module("TeachmeApp",["firebase",'ui.bootstrap.modal']);
 			app.controller("TeachmeCtrl",function($scope,$firebaseAuth){
-				var ref = new Firebase("https://teachmemhacks.firebaseio.com/");
+				var ref = new Firebase("https://shining-fire-6589.firebaseio.com/");
 				var auth = $firebaseAuth(ref);
-				$scope.registerConf = false;
 				$scope.authData = null;
 				auth.$onAuth(function(authData){
+					console.log("currently",authData);
 					$scope.authData = authData;
 				});
 				$scope.login = function(){
@@ -24,6 +40,10 @@
 						auth.$authWithPassword($scope.user, function(error, authData){
 							if(error)
 								console.log("loginError:",error);
+							else{
+								$scope.user = {};
+								$scope.confpass = "";
+							}
 						});
 					}
 				};
@@ -35,11 +55,12 @@
 					auth.$unauth();
 				};
 				$scope.register = function(){
+					console.log("hi",$scope.authData);
 					if($scope.authData === null){
-						if(!$scope.registerConf)$scope.registerConf = true;
-						else if($scope.user.password == $scope.confpass)
+						console.log("asldfjasljflkajsd");
+						if($scope.user.password == $scope.confpass)
 							auth.$createUser($scope.user).then(function(authData){
-								login();
+								$scope.login();
 							},function(authError){
 								console.log("regError:",authError);
 							});
@@ -47,23 +68,46 @@
 							console.log("Error: passwords do not match");
 					}
 				};
+				$scope.showModal=true;
 			});
 		</script>
 	</head>
 	<body ng-controller="TeachmeCtrl">
-		<form ng-show="authData === null" ng-keypress="processKeypress($event)">
-			<input type="email" style="display:block;" ng-model="user.email" placeholder="Email">
-			<input type="password" style="display:block;" ng-model="user.password" placeholder="Password">
-			<input type="password" style="display:block;" ng-model="confpass" placeholder="Confirm Password" ng-show="registerConf" class="ng-hide">
-			<div>
-				<button class="btn btn-primary" ng-click="login()">Log in</button>
-				<button class="btn btn-default" ng-click="register()">Register</button></div>
-		</form>
-		<button class="btn btn-default" ng-click="logout()" ng-show="authData !== null">Log out</button>
-		
-		<div ng-repeat="collection in collections">
-			{{collection.name}}
+		<div>
+			<button class="btn btn-default" ng-click="logout()" ng-show="authData !== null">Log out</button>
+			<div ng-show="authData === null">
+				<button class="btn btn-default" ng-click="mode='loggingin'">Log in</button>
+				<button class="btn btn-primary" ng-click="mode='registering'">Register</button>
+			</div>
 		</div>
-		</body>
+		
+		<div modal="authData===null && (mode=='registering' || mode=='loggingin')" class="modal fade" close="mode=null">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" ng-click="mode=null" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">Log In</h4>
+                    </div>
+                    <form name="userForm">
+                        <div class="modal-body">
+                            <label style="display:block;">Email:<input class="form-control" type="email" ng-model="user.email" placeholder="Email"></label>
+							<label style="display:block;">Password:<input class="form-control" type="password" ng-model="user.password" placeholder="Password"></label>
+							<label style="display:block;" ng-show="mode=='registering'" class="ng-hide">Confirm Password:<input class="form-control" type="password" ng-model="confpass" placeholder="Confirm Password"></label>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" ng-show="mode=='loggingin'" ng-click="login()">Log in</button>
+							<button class="btn btn-primary" ng-show="mode=='registering'" ng-click="register()">Register</button>
+							<button class="btn btn-default" ng-click="mode=null">Cancel</button>
+						</div>
+                    </form>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+	</body>
 </html>
 
