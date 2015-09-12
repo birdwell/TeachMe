@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.view1', ['ngRoute','firebase'])
+angular.module('myApp.view1', ['ngRoute','firebase','ui.bootstrap.modal'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/view1', {
@@ -11,17 +11,28 @@ angular.module('myApp.view1', ['ngRoute','firebase'])
 
 .controller('View1Ctrl', ['$scope','$firebase', function($scope, $firebase) {
     var fireBase = new Firebase('https://shining-fire-6589.firebaseio.com');
-    $scope.user = {};
+    $scope.collection = {};
 
-    // calling our submit function.
-    $scope.submitForm = function() {
-        var username = $scope.user.username;
-        var name = $scope.user.name;
-        var email = $scope.user.email;
+    $scope.addCollection = function() {
+        var title = $scope.collection.title;
+        var type = $scope.collection.type;
+        var desc = $scope.collection.description;
         fireBase.push({
-            username: username,
-            name: name,
-            email: email
+            title: title,
+            type: type,
+            desc: desc
         });
     };
-}]);
+
+    $scope.open = function() {
+      $scope.showModal = true;
+    };
+
+    $scope.ok = function() {
+      $scope.showModal = false;
+    };
+
+    $scope.cancel = function() {
+      $scope.showModal = false;
+    };
+}])
