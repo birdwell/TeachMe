@@ -8,17 +8,25 @@ app.controller("TeachmeCtrl",function($scope,$firebaseAuth){
         console.log("currently",authData);
         $scope.authData = authData;
     });
-
+	
+	$scope.$watch("mode",function(){
+		if(!$scope.mode){
+			$scope.user = {};
+			$scope.errmsg = null;
+		}
+	},true);
+	
     $scope.login = function(){
         if($scope.authData === null){
-            auth.$authWithPassword($scope.user, function(error, authData){
-                if(error)
-                    console.log("loginError:",error);
-                else{
-                    $scope.user = {};
-                    $scope.confpass = "";
-                }
-            });
+            auth.$authWithPassword($scope.user).then(function(success){
+				console.log(success);
+				$scope.user = {};
+				$scope.confpass = "";
+				$scope.errmsg = "";
+				$scope.mode = null;
+            },function(error){
+				$scope.errmsg = error;
+			});
         }
     };
     $scope.processKeypress = function(e){
@@ -34,7 +42,7 @@ app.controller("TeachmeCtrl",function($scope,$firebaseAuth){
                 auth.$createUser($scope.user).then(function(authData){
                     $scope.login();
                 },function(authError){
-                    console.log("regError:",authError);
+                    $scope.errmsg = authError;
                 });
             else
                 console.log("Error: passwords do not match");

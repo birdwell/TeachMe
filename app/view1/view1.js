@@ -16,6 +16,7 @@ angular.module('myApp.view1', ['ngRoute','firebase','ui.bootstrap.modal','ngTags
     $scope.authData = null;
 	
 	$firebaseObject(ref.child("collections")).$bindTo($scope,"collections");
+	$firebaseObject(ref.child("users")).$bindTo($scope,"users");
 	
 	
     auth.$onAuth(function(authData){
@@ -41,15 +42,16 @@ angular.module('myApp.view1', ['ngRoute','firebase','ui.bootstrap.modal','ngTags
           console.log("Authenticated user with uid:", $scope.authData.uid);
         }
 
-		var cid = ref.child('collections').push({
+		var c = ref.child('collections').push()
+		c.setWithPriority({
 			title: title,
 			type: type,
 			desc: desc || '',
 			tags: tags || [],
 			authorId: $scope.authData.uid
-		}, onComplete).key();
+		}, 0 - Date.now(), onComplete); //http://stackoverflow.com/a/25613337/1181387
 		
-        ref.child('users').child($scope.authData.uid).child('collectionIDs').push(cid);
+        ref.child('users').child($scope.authData.uid).child('collectionIDs').push().setWithPriority(c.key(),0 - Date.now());
     };
     var onComplete = function(error) {
       if (error) {

@@ -4,12 +4,14 @@
         <button class="btn" ng-show="authData !== null" ng-click="open()">Add Collection</button>
 		
 		<div>
-			<div ng-repeat="collection in collections">
+			<div ng-repeat="collection in collections" style="padding:10px;border:solid 1px #000;">
+				<div style="display:inline-block;float:right;font-size:2em;">&#9650;</div>
+				<h3>{{collection.title}}</h3>
+				<b>by {{users[collection.authorId].email}}</b>
 				
-				{{collection}}
 			</div>
 		</div>
-
+		
         <div modal="showModal" class="modal fade" close="cancel()">
             <div class="modal-dialog">
                 <div class="modal-content">
