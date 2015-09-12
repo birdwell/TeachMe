@@ -25,12 +25,7 @@ angular.module('myApp.view1', ['ngRoute','firebase','ui.bootstrap.modal','ngTags
         var type = $scope.collection.type;
         var desc = $scope.collection.description;
 	var tags = $scope.collection.tags;
-	//= [
-	//	       { text: 'Tag1' },
-	//	       { text: 'Tag2' },
-	//	       { text: 'Tag3' }
-	//	       ];
-		
+
         fireBase.push({
             title: title,
             type: type,
