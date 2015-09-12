@@ -9,25 +9,28 @@ angular.module('myApp.view1', ['ngRoute','firebase','ui.bootstrap.modal','ngTags
   });
 }])
 
-.controller('View1Ctrl', ['$scope','$firebase','$http','$firebaseAuth', function($scope, $firebase,$http, $firebaseAuth) {
+.controller('View1Ctrl', ['$scope','$firebaseArray','$http','$firebaseAuth','$firebaseObject', function($scope, $firebaseArray, $http, $firebaseAuth,$firebaseObject) {
     var ref = new Firebase('https://shining-fire-6589.firebaseio.com');
     var auth = $firebaseAuth(ref);
     $scope.showModal = false;
     $scope.authData = null;
+	
+	$firebaseObject(ref.child("collections")).$bindTo($scope,"collections");
+	
+	
     auth.$onAuth(function(authData){
         console.log("currently",authData);
         $scope.authData = authData;
     });
-
-    $scope.collection = {};
+	
     $scope.tags = [
 		   { text: 'Tag1' },
 		   { text: 'Tag2' },
 		   { text: 'Tag3' }
 		   ];
-    $scope.collection.loadTags = function(query) {
+    /*$scope.collection.loadTags = function(query) {
 	    return $http.get('tags.json');
-	};
+	};*/
 
     $scope.addCollection = function() {
         var title = $scope.collection.title;
@@ -58,7 +61,7 @@ angular.module('myApp.view1', ['ngRoute','firebase','ui.bootstrap.modal','ngTags
     };
     $scope.open = function() {
       $scope.showModal = true;
-      $scope.collection = {};
+      $scope.collection = {type:"References"};
     };
 
     $scope.ok = function() {

@@ -2,17 +2,24 @@
     <div class="col-sm-8">
         <!-- FORM -->
         <button class="btn" ng-show="authData !== null" ng-click="open()">Add Collection</button>
+		
+		<div>
+			<div ng-repeat="collection in collections">
+				
+				{{collection}}
+			</div>
+		</div>
 
         <div modal="showModal" class="modal fade" close="cancel()">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" ng-click="cancel()" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <h4 class="modal-title">Add Collection</h4>
-                    </div>
                     <form name="userForm" ng-submit="addCollection()">
+						<div class="modal-header">
+							<button type="button" ng-click="cancel()" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h4 class="modal-title">Add Collection</h4>
+						</div>
                         <div class="modal-body">
                             <div class="form-group">
                                 <label>Collection Title: </label>
@@ -20,8 +27,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="sel1">Type:</label>
-                                <select ng-model="collection.type" name="type" class="form-control" id="sel1">
-                                    <option ng-selected="true">References</option>
+                                <select ng-model="collection.type" ng-init="collection.type='References'" name="type" class="form-control" id="sel1">
+                                    <option>References</option>
                                     <option>Track</option>
                                 </select>
                             </div>
@@ -29,16 +36,17 @@
                                 <label>Description: </label>
                                 <input type="text" name="description" class="form-control" ng-model="collection.description">
                             </div>
-			    <div class="form-group">
+							<div class="form-group">
                                 <label>Tags: </label>
                                 <tags-input ng-model="collection.tags" add-on-paste="true">
 								  <auto-complete source="collection.loadTags($query)"></auto-complete>
 								</tags-input>
                             </div>
-                        <div class="modal-footer">
-                            <button type="button" ng-click="cancel()" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="submit" ng-click="submit()"class="btn btn-primary">Submit</button>
-                        </div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" ng-click="cancel()" class="btn btn-default" data-dismiss="modal">Close</button>
+							<button type="submit" ng-click="submit()"class="btn btn-primary">Submit</button>
+						</div>
                     </form>
                 </div>
                 <!-- /.modal-content -->
