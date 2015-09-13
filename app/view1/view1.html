@@ -6,8 +6,32 @@
 		<div>
 			<div ng-repeat="(key, collection) in collections" style="padding:10px;border:solid 1px #000;">
 				<div ng-click="upvote(key)" style="display:inline-block;float:right;font-size:2em;cursor:pointer;" ng-style="upvoted(collection) && {'color':'#090'} || {'color':'#000'}"><div>&#9650;</div><div ng-bind="countupvotes(collection)"></div></div>
+				
 				<h3><a ng-href="#/collections/{{key}}"> {{collection.title}} </a></h3>
 				<b>by <span ng-bind="users[collection.authorId].email || 'unknown'"></span></b>
+				
+				<style>
+				.tags .tag{
+					display:inline-block;
+					padding:0 5px;
+					border-radius:3px;
+					margin:2px;
+					
+					border:solid 1px #000;
+					background:#666;
+					color:#fff;
+					
+					text-decoration:none;
+					
+					transition:background 0.4s;
+				}
+				.tags .tag:hover{
+					color:#fff;
+					background:#777;
+				}
+				.tags .tag:active{color:#fff;}
+				</style>
+				<div class="tags"><a ng-repeat="tag in collection.tags" ng-href="#/tags/{{tag.text}}" class="tag">{{tag.text}}</a></div>
 			</div>
 		</div>
 

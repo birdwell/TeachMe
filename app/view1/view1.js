@@ -120,7 +120,6 @@ angular.module('myApp.view1', ['ngRoute','firebase','ui.bootstrap.modal','ngTags
 		else{
             if (collection.upvotes == null) collection.upvotes = {}
 			collection.upvotes[$scope.authData.uid] = !collection.upvotes[$scope.authData.uid];
-            console.log($scope.collections)
             $scope.collections[key] = collection;
 		}
 	};
