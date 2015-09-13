@@ -4,9 +4,9 @@
         <button class="btn" ng-show="authData !== null" ng-click="showModal=true;resetCollectionForm();">Add Collection</button>
 		
 		<div>
-			<div ng-repeat="collection in collections" style="padding:10px;border:solid 1px #000;">
+			<div ng-repeat="(key, collection) in collections" style="padding:10px;border:solid 1px #000;">
 				<div style="display:inline-block;float:right;font-size:2em;"><div ng-click="upvote(collection)" ng-style="upvoted(collection) && {'color':'#990'} || {'color':'#000'}" style="cursor:pointer;">&#9650;</div><div ng-bind="countupvotes(collection)"></div></div>
-				<h3>{{collection.title}}</h3>
+				<h3><a ng-href="#/collections/{{key}}"> {{collection.title}} </a></h3>
 				<b>by <span ng-bind="users[collection.authorId].email || 'unknown'"></span></b>
 			</div>
 		</div>

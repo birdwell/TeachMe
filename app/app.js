@@ -7,6 +7,7 @@ angular.module('myApp', [
   'myApp.view2',
   'myApp.version',
   'firebase',
+  'myApp.collection',
   'TeachmeApp'
 ]).
 config(['$routeProvider', function($routeProvider) {
