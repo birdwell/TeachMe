@@ -31,7 +31,10 @@ app.controller("TeachmeCtrl",function($scope,$firebaseAuth){
     };
     $scope.processKeypress = function(e){
         if(e.which==13)
-            $scope.login();
+			if($scope.mode="registering")
+				$scope.register();
+			else
+				$scope.login();
     };
     $scope.logout = function(){
         auth.$unauth();

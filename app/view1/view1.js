@@ -24,12 +24,6 @@ angular.module('myApp.view1', ['ngRoute','firebase','ui.bootstrap.modal','ngTags
         $scope.authData = authData;
     });
 
-    $scope.tags = [
-		   { text: 'Tag1' },
-		   { text: 'Tag2' },
-		   { text: 'Tag3' }
-		   ];
-
 	$scope.processKeypress = function($event){
 		if($event.which==13)
 			$scope.addCollection();
