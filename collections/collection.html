@@ -24,7 +24,6 @@
             <div ng-repeat="resource in collection.resources" class='col-md-4'>
                 <div class="card">
                     <div class="card-block">
-
                         <h3>
                             <input class="plaininput card-title" placeholder="title" ng-model="resource.title" ng-disabled="collection.authorId!==authData.uid">
                         </h3>
@@ -36,7 +35,7 @@
                                 <a class="resourceLink" ng-href="{{resource.link}}" onclick="return false;">
                                     <input class="plaininput" style="width:40em" placeholder="http://link.to.anywhere" ng-model="resource.link" ng-disabled="collection.authorId!==authData.uid">
                                 </a>
-                                <a class="btn learn btn-success" ng-href="{{resource.link}}">
+                                <a ng-hide="resource == null" class="btn learn btn-success" ng-href="{{resource.link}}">
                                     Learn
                                 </a>
                             </p>

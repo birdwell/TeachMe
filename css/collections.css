@@ -64,3 +64,9 @@ a.btn.learn.btn-success {
     padding: 8px;
     margin-top: 10px;
 }
+.resourceLink input {
+    text-overflow: ellipsis;
+}
+.hero-title, .hero-description {
+    text-align: center;
+}
