@@ -14,5 +14,10 @@ angular.module('myApp.collection', ['ngRoute'])
         //Get ID out of current URL
         var ref = new Firebase('https://shining-fire-6589.firebaseio.com/collections/' + $routeParams.collectionId);
 		$firebaseObject(ref).$bindTo($scope,"collection");
+		$scope.newresource = function(){
+			if($scope.collection.resources==null)
+				$scope.collection.resources=[];
+			$scope.collection.resources.push({});
+		}
     }
 ]);

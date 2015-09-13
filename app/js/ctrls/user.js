@@ -10,7 +10,7 @@ app.controller("TeachmeCtrl",function($scope,$firebaseAuth){
     });
 	
 	$scope.$watch("mode",function(){
-		if(!$scope.mode){
+		if($scope.mode==null){
 			$scope.user = {};
 			$scope.errmsg = null;
 		}

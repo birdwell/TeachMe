@@ -8,7 +8,7 @@
                 <div class="card">
                     <div class="card-header">
                         {{collection.type}}
-                        <div ng-click="upvote(key)" class="upvote" ng-style="upvoted(collection) && {'color':'#090'} || {'color':'#000'}">
+                        <div style="cursor:pointer;" ng-click="upvote(key)" class="upvote" ng-style="upvoted(collection) && {'color':'#090'} || {'color':'#000'}">
                             <span class="arrow">&#9650;</span>
                             <span class="upvoteNum" ng-bind="countupvotes(collection)"></span>
                         </div>

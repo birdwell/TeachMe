@@ -4,6 +4,7 @@
 				.plaininput{
 					border: none;
 					text-align:inherit;
+					overflow:visible;
 				}
 				.plaininput:focus{
 					outline: solid 1px #000;
@@ -38,14 +39,24 @@
 			</style>
             <h1 class="hero-title"><input class="plaininput" ng-model="collection.title"></h1>
             <h2 class="hero-description"><input class="plaininput" ng-model="collection.desc"></h2>
-			<center><select class="plaininput" ng-model="collection.type">
-				<option>Reference</option>
-				<option>Track</option>
-			</select></center>
+			<center>
+				<select class="plaininput" ng-model="collection.type">
+					<option>Reference</option>
+					<option>Track</option>
+				</select>
+			</center>
 			<center>
 				<tags-input ng-model="collection.tags" add-on-paste="true">
 				  <auto-complete source="tags"></auto-complete>
 				</tags-input>
 			</center>
-        </div>
+			<div ng-repeat="resource in collection.resources" style="border:solid 1px #000;margin:5px;">
+				<h3><input class="plaininput" placeholder="title" ng-model="resource.title"></h3>
+				<p><input class="plaininput" placeholder="descriptive text" ng-model="resource.text"></p>
+				<p><a ng-href="{{resource.link}}" onclick="return false;">
+					<input class="plaininput" placeholder="http://link.to.anywhere" ng-model="resource.link">
+				</a></p>
+			</div>
+			<button ng-click="newresource()">New Resource</button>
+		</div>
 </div>
