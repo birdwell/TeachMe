@@ -44,7 +44,7 @@
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>
                 <span>
-                    <ul class="nav navbar-nav navbar-right">
+                    <ul class="nav navbar-nav login navbar-right">
             			<li class="btn btn-default" ng-click="logout()" ng-show="authData !== null">Log out</li>
             			<span ng-show="authData === null">
             				<li class="btn btn-default" ng-click="mode='loggingin'">Log in</li>
@@ -96,13 +96,14 @@
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <!-- Firebase -->
     <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
-	
+
     <!-- AngularFire -->
     <script src="https://cdn.firebase.com/libs/angularfire/1.1.2/angularfire.min.js"></script>
     <script src="js/ctrls/user.js"></script>
     <script src="app.js"></script>
     <script src="view1/view1.js"></script>
     <script src="view2/view2.js"></script>
+    <script src="collections/collection.js"></script>
     <script src="components/version/version.js"></script>
     <script src="components/version/version-directive.js"></script>
     <script src="components/version/interpolate-filter.js"></script>
