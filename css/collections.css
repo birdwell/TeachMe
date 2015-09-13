@@ -70,3 +70,6 @@ a.btn.learn.btn-success {
 .hero-title, .hero-description {
     text-align: center;
 }
+.deleteResource{
+    float: right;
+}
