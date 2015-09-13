@@ -31,7 +31,7 @@ angular.module('myApp.view1', ['ngRoute','firebase','ui.bootstrap.modal','ngTags
 
     $scope.addCollection = function() {
         var collectionInd = generatePushID();
-        if(!$scope.users[$scope.authData.uid].collectionIDs){
+        if($scope.users[$scope.authData.uid].collectionIDs == null){
             $scope.users[$scope.authData.uid].collectionIDs = {}
         }
 
@@ -114,7 +114,7 @@ angular.module('myApp.view1', ['ngRoute','firebase','ui.bootstrap.modal','ngTags
 	$scope.upvote = function(key){
         var collection = $scope.collections[key];
         console.log($scope.collections, collection, key)
-		if(!$scope.authData)alert("Log in to do that");
+		if($scope.authData==null)alert("Log in to do that");
 		else{
             if (collection.upvotes == null) collection.upvotes = {}
 			collection.upvotes[$scope.authData.uid] = !collection.upvotes[$scope.authData.uid];
