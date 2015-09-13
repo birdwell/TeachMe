@@ -18,7 +18,6 @@ angular.module('myApp.view1', ['ngRoute','firebase','ui.bootstrap.modal','ngTags
 	$firebaseObject(ref.child("collections")).$bindTo($scope,"collections");
 	$firebaseObject(ref.child("users")).$bindTo($scope,"users");
 	
-	
     auth.$onAuth(function(authData){
         console.log("currently",authData);
         $scope.authData = authData;
@@ -29,38 +28,58 @@ angular.module('myApp.view1', ['ngRoute','firebase','ui.bootstrap.modal','ngTags
 		   { text: 'Tag2' },
 		   { text: 'Tag3' }
 		   ];
-    /*$scope.collection.loadTags = function(query) {
+	
+    $scope.loadTags = function(query) {
 	    return $http.get('tags.json');
-	};*/
+	};
+	
+	$scope.processKeypress = function($event){
+		if($event.which==13)$scope.addCollection();
+	}
 
     $scope.addCollection = function() {
-        var title = $scope.collection.title;
-        var type = $scope.collection.type;
-        var desc = $scope.collection.description;
-        var tags = $scope.collection.tags;
+        var title = $scope.newcollection.title;
+        var type = $scope.newcollection.type;
+        var desc = $scope.newcollection.description;
+        var tags = $scope.newcollection.tags;
         if ($scope.authData) {
           console.log("Authenticated user with uid:", $scope.authData.uid);
         }
 
-		var c = ref.child('collections').push()
-		c.setWithPriority({
+		var ind = Math.floor(Math.random()*1000000)+Math.floor(Math.random()*1000000)+Math.floor(Math.random()*1000000);
+		$scope.collections[ind] = {
 			title: title,
 			type: type,
 			desc: desc || '',
 			tags: tags || [],
-			authorId: $scope.authData.uid
-		}, 0 - Date.now(), onComplete); //http://stackoverflow.com/a/25613337/1181387
+			authorId: $scope.authData.uid,
+			date: Date.now()
+		};
 		
-        ref.child('users').child($scope.authData.uid).child('collectionIDs').push().setWithPriority(c.key(),0 - Date.now());
+		$scope.users[$scope.authData.uid].collectionIDs.push(ind);
     };
-    var onComplete = function(error) {
-      if (error) {
-        console.log('Synchronization failed');
-      } else {
-        console.log('Synchronization succeeded');
-        $scope.showModal = false;
-      }
-    };
+	
+	$scope.upvote = function(collection){
+		if(!$scope.authData)alert("Log in to do that");
+		
+		if(!collection.upvotes)collection.upvotes=[];
+		
+		if(collection.upvotes[$scope.authData.uid])
+			collection.upvotes[$scope.authData.uid] = 0;
+		else
+			collection.upvotes[$scope.authData.uid] = 1;
+	};
+	$scope.countupvotes = function(collection){
+		if(!collection.upvotes)collection.upvotes=[];
+		
+		return Object.keys(collection.upvotes).reduce(function (previous, key) {
+			return previous + collection.upvotes[key];
+		}, 0); //this is brilliant http://stackoverflow.com/a/15748853/1181387
+	};
+	$scope.upvoted = function(collection){
+		return $scope.authData && collection.upvotes && collection.upvotes[$scope.authData.uid];
+	};
+	
     $scope.open = function() {
       $scope.showModal = true;
       $scope.collection = {type:"References"};
@@ -68,7 +87,6 @@ angular.module('myApp.view1', ['ngRoute','firebase','ui.bootstrap.modal','ngTags
 
     $scope.ok = function() {
       $scope.showModal = false;
-
     };
 
     $scope.cancel = function() {

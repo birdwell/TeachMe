@@ -40,6 +40,9 @@ app.controller("TeachmeCtrl",function($scope,$firebaseAuth){
         if($scope.authData === null){
             if($scope.user.password == $scope.confpass)
                 auth.$createUser($scope.user).then(function(authData){
+					ref.child("users").child(authData.uid).set({
+						email: $scope.user.email
+					})
                     $scope.login();
                 },function(authError){
                     $scope.errmsg = authError;
