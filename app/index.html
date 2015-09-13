@@ -29,23 +29,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Teach Me</a>
+                <a class="navbar-brand" href="#/view1">Teach Me</a>
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#/view1">Home</a></li>
-                    <li><a href="#/view2">view2</a></li>
-                    <li><a ng-show='authData !== null' ng-href='#/profile/{{authData.uid}}'>Profile</a></li>
+                    <li><a href="#/view1">Home</a></li>
+                    <li><a ng-show='authData !== null' ng-href='#/users/{{authData.uid}}'>Profile</a></li>
                 </ul>
-                <span ng-controller="TeachmeCtrl">
-                    <form class="navbar-form navbar-left"  role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search">
-                        </div>
-                        <button type="submit" ng-click="go('#/search.html')" class="btn btn-default">Submit</button>
-                    </form>
-                </span>
+
                 <span>
                     <ul class="nav navbar-nav login navbar-right">
             			<li class="btn btn-default" ng-click="logout()" ng-show="authData !== null">Log out</li>
