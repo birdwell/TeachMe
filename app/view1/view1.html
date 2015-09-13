@@ -1,10 +1,10 @@
 <div class="container" ng-controller="View1Ctrl">
-    <div class="col-sm-8">
+    <div class="col-sm-12">
         <!-- FORM -->
         <button class="btn btn-success addCollection" ng-show="authData !== null" ng-click="showModal=true;resetCollectionForm();">Add Collection</button>
 
-        <div>
-            <div class='collections' ng-repeat="(key, collection) in collections">
+        <div class='row'>
+            <div class='collections col-md-4' ng-repeat="(key, collection) in collections">
                 <div class="card">
                     <div class="card-header">
                         {{collection.type}}

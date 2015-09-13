@@ -45,6 +45,7 @@ ul.login {
     border: .0625rem solid #e5e5e5;
     border-radius: .25rem;
     max-width: 350px;
+    height: 220px;
 }
 .card-block {
     padding: 1.25rem;
