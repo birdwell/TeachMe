@@ -3,48 +3,39 @@
         <!-- FORM -->
         <button class="btn" ng-show="authData !== null" ng-click="showModal=true;resetCollectionForm();">Add Collection</button>
 
-		<div>
-			<div ng-repeat="(key, collection) in collections" style="padding:10px;border:solid 1px #000;">
-				<div ng-click="upvote(key)" style="display:inline-block;float:right;font-size:2em;cursor:pointer;" ng-style="upvoted(collection) && {'color':'#090'} || {'color':'#000'}"><div>&#9650;</div><div ng-bind="countupvotes(collection)"></div></div>
-				
-				<h3><a ng-href="#/collections/{{key}}"> {{collection.title}} </a></h3>
-				<b>by <span ng-bind="users[collection.authorId].email || 'unknown'"></span></b>
-				
-				<style>
-				.tags .tag{
-					display:inline-block;
-					padding:0 5px;
-					border-radius:3px;
-					margin:2px;
-					
-					border:solid 1px #000;
-					background:#666;
-					color:#fff;
-					
-					text-decoration:none;
-					
-					transition:background 0.4s;
-				}
-				.tags .tag:hover{
-					color:#fff;
-					background:#777;
-				}
-				.tags .tag:active{color:#fff;}
-				</style>
-				<div class="tags"><a ng-repeat="tag in collection.tags" ng-href="#/tags/{{tag.text}}" class="tag">{{tag.text}}</a></div>
-			</div>
-		</div>
-
+        <div>
+            <div class='collections' ng-repeat="(key, collection) in collections">
+                <div class="card">
+                    <div class="card-header">
+                        {{collection.type}}
+                        <div ng-click="upvote(key)" class="upvote" ng-style="upvoted(collection) && {'color':'#090'} || {'color':'#000'}">
+                            <span class="arrow">&#9650;</span>
+                            <span class="upvoteNum" ng-bind="countupvotes(collection)"></span>
+                        </div>
+                    </div>
+                    <div class="card-block">
+                        <h4 class="card-title"><a ng-href="#/collections/{{key}}"> {{collection.title}} </a></h4>
+                        <p class="card-text">
+                            {{collection.desc}}
+                            <br/>
+                            <span class="tags"><a ng-repeat="tag in collection.tags" ng-href="#/tags/{{tag.text}}" class="tag">{{tag.text}}</a></span>
+                            <br/>
+                            <b>by <span ng-bind="users[collection.authorId].email || 'unknown'"></span></b>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div modal="showModal" class="modal fade" close="showModal=false">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form name="userForm" ng-submit="addCollection()" ng-keypress="processKeypress($event)">
-						<div class="modal-header">
-							<button type="button" ng-click="showModal=false" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-							<h4 class="modal-title">Add Collection</h4>
-						</div>
+                        <div class="modal-header">
+                            <button type="button" ng-click="showModal=false" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title">Add Collection</h4>
+                        </div>
                         <div class="modal-body">
                             <div class="form-group">
                                 <label>Collection Title: </label>
@@ -61,23 +52,20 @@
                                 <label>Description: </label>
                                 <input type="text" name="description" class="form-control" ng-model="newcollection.description">
                             </div>
-							<div class="form-group">
+                            <div class="form-group">
                                 <label>Tags: </label>
                                 <tags-input ng-model="newcollection.tags" add-on-paste="true">
-								  <auto-complete source="tags"></auto-complete>
-								</tags-input>
+                                    <auto-complete source="tags"></auto-complete>
+                                </tags-input>
                             </div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" ng-click="showModal=false" class="btn btn-default" data-dismiss="modal">Close</button>
-							<button type="submit" ng-click="showModal=false" class="btn btn-primary">Submit</button>
-						</div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" ng-click="showModal=false" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" ng-click="showModal=false" class="btn btn-primary">Submit</button>
+                        </div>
                     </form>
                 </div>
-                <!-- /.modal-content -->
             </div>
-            <!-- /.modal-dialog -->
         </div>
-        <!-- /.modal -->
     </div>
 </div>

@@ -37,6 +37,10 @@ angular.module('myApp.view1', ['ngRoute','firebase','ui.bootstrap.modal','ngTags
 
     $scope.addCollection = function() {
         var collectionInd = generatePushID();
+        if(!$scope.users[$scope.authData.uid].collectionIDs){
+            $scope.users[$scope.authData.uid].collectionIDs = {}
+        }
+
 		$scope.users[$scope.authData.uid].collectionIDs[generatePushID()]=collectionInd;
 		$scope.collections[collectionInd] = {
 			title: $scope.newcollection.title,
