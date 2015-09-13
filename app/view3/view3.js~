@@ -1,0 +1,36 @@
+'use strict';
+
+angular.module('myApp.view3', ['ngRoute','firebase','ui.bootstrap.modal','ngTagsInput'])
+
+.config(['$routeProvider', function($routeProvider) {
+  $routeProvider.when('/view3', {
+    templateUrl: 'view3/view3.html',
+    controller: 'View3Ctrl'
+  });
+	}])
+
+.controller('View3Ctrl', ['$scope','$firebaseArray','$http','$firebaseAuth','$firebaseObject', function($scope, $firebaseArray, $http, $firebaseAuth,$firebaseObject) {
+    var ref = new Firebase('https://shining-fire-6589.firebaseio.com');
+    var obj = $firebaseAuth(ref);
+
+    console.log("This does not do nothing.");
+    $scope.message = "This does not do nothing either!";
+    $scope.yay=function(){
+	console.log("SO MUCH NOTHING IS NOT BEING DONE");
+    }
+    $scope.yay2=function(){
+	console.log("SOsalfksjdf MUCH NOTHING IS NOT BEING DONE");
+    }
+    $scope.yay3=function(){
+	console.log("!!!!!!!");
+    }
+
+    obj.$loaded().then(yay2()) {
+	    console.log("loaded record:", obj.$id, obj.someOtherKeyInData);
+
+	    // To iterate the key/value pairs of the object, use angular.forEach()
+	    angular.forEach(obj, function(value, key) {
+		    console.log(key, value);
+		});
+	});)
+}])

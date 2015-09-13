@@ -1,6 +1,37 @@
 <div class="container" ng-controller="CollectionCtrl">
         <div class="hero hero-collections">
-            <h1 class="hero-title">{{title}}</h1>
-            <h2 class="hero-description">{{desc}}</h2>
+			<style>
+				.plaininput{
+					border: none;
+					text-align:inherit;
+				}
+				.plaininput:focus{
+					outline: solid 1px #000;
+				}
+				.tags .tag-list .tag-item{
+					border:solid 1px #000;
+					background:#666;
+					background-image:none;
+					color:#fff;
+				}
+				.tags .tag-list .tag-item a.remove-button{
+					color:#ccc;
+				}
+				.tags .tag-list .tag-item a.remove-button:hover{
+					text-decoration:none;
+				}
+				.tags .tag-list .tag-item a.remove-button:active{
+					color:#000;
+					text-decoration:none;
+				}
+			</style>
+            <h1 class="hero-title"><input class="plaininput" ng-model="collection.title"></h1>
+            <h2 class="hero-description"><input class="plaininput" ng-model="collection.desc"></h2>
+			<center><input class="plaininput" ng-model="collection.type"></center>
+			<center>
+				<tags-input ng-model="collection.tags" add-on-paste="true">
+				  <auto-complete source="tags"></auto-complete>
+				</tags-input>
+			</center>
         </div>
 </div>
