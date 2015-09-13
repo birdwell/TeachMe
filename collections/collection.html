@@ -24,7 +24,7 @@
             <div ng-repeat="resource in collection.resources" class='col-md-4'>
                 <div class="card">
                     <div class="card-block">
-                        <span class="glyphicon glyphicon-remove deleteResource" ng-click="deleteResource(resource,collection)"aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-remove deleteResource" ng-click="deleteResource(resource,collection)"aria-hidden="true" ng-hide="collection.authorId!==authData.uid"></span>
                         <h3>
                             <input class="plaininput card-title" placeholder="title" ng-model="resource.title" ng-disabled="collection.authorId!==authData.uid">
                         </h3>
