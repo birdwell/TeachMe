@@ -14,7 +14,7 @@
                         </div>
                     </div>
                     <div class="card-block">
-                        <h4 class="card-title"><a ng-href="#/collections/{{key}}"> {{collection.title}} </a> by <span ng-bind="users[collection.authorId].email || 'unknown'"></span></h4>
+                        <h4 class="card-title"><a ng-href="#/collections/{{key}}"> {{collection.title}} </a> <span class="byline"><span ng-bind="users[collection.authorId].email || 'unknown'"></span></span></h4>
                         <p class="card-text">
                             {{collection.desc}}
                             <br/>

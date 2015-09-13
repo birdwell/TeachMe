@@ -254,3 +254,14 @@ button.btn.addCollection {
     margin: 20px;
     margin-left: 0px;
 }
+
+.byline{
+	font-size: 0.5em;
+	font-style:italic;
+	float:right;
+	margin-top:0.6em;
+}
+.card-title{
+	font-size: 2em;
+	margin-top:0;
+}
