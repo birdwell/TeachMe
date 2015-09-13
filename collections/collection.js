@@ -9,11 +9,17 @@ angular.module('myApp.collection', ['ngRoute'])
     });
 }])
 
-.controller('CollectionCtrl', ['$scope', '$routeParams', '$firebaseObject',
-    function($scope, $routeParams, $firebaseObject) {
+.controller('CollectionCtrl', ['$scope', '$routeParams', '$firebaseObject', '$firebaseAuth',
+    function($scope, $routeParams, $firebaseObject, $firebaseAuth) {
         //Get ID out of current URL
         var ref = new Firebase('https://shining-fire-6589.firebaseio.com/collections/' + $routeParams.collectionId);
 		$firebaseObject(ref).$bindTo($scope,"collection");
+		
+		var auth = $firebaseAuth(ref);
+		auth.$onAuth(function(authData){
+			$scope.authData = authData;
+		});
+		
 		$scope.newresource = function(){
 			if($scope.collection.resources==null)
 				$scope.collection.resources=[];

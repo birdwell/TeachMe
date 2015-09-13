@@ -1,10 +1,24 @@
-<div class="container" ng-controller="CollectionCtrl">
+<div class="container" ng-controller="CollectionCtrl" ng-class="{'no-edit':collection.authorId!==authData.uid}">
         <div class="hero hero-collections">
 			<style>
+				:disabled{
+					background:transparent;
+				}
+				tags-input[disabled] .tags .input,tags-input[disabled] .tags .tag-item{
+					
+					border:solid 1px #000;
+					background:#666 !important;
+					background-image:none !important;
+					color:#fff;
+				}
+				tags-input[disabled] .tags{background:white;color:white !important;}
+				
 				.plaininput{
 					border: none;
 					text-align:inherit;
 					overflow:visible;
+					width:20em;
+					max-width:100%;
 				}
 				.plaininput:focus{
 					outline: solid 1px #000;
@@ -37,26 +51,28 @@
 				.no-edit tags-input div.tags{display:inline-block;border:none;}
 				.no-edit tags-input div.tags.focused{box-shadow:none;}
 			</style>
-            <h1 class="hero-title"><input class="plaininput" ng-model="collection.title"></h1>
-            <h2 class="hero-description"><input class="plaininput" ng-model="collection.desc"></h2>
+            <h1 class="hero-title"><input class="plaininput" ng-model="collection.title" ng-disabled="collection.authorId!==authData.uid"></h1>
+            <h2 class="hero-description"><input class="plaininput" ng-model="collection.desc" ng-disabled="collection.authorId!==authData.uid"></h2>
 			<center>
-				<select class="plaininput" ng-model="collection.type">
+				<select class="plaininput" ng-model="collection.type" ng-hide="collection.authorId!==authData.uid">
 					<option>Reference</option>
 					<option>Track</option>
 				</select>
+				<span ng-show="collection.authorId!==authData.uid">{{collection.type}}</span>
 			</center>
 			<center>
-				<tags-input ng-model="collection.tags" add-on-paste="true">
+				<tags-input ng-model="collection.tags" add-on-paste="true" ng-disabled="collection.authorId!==authData.uid">
 				  <auto-complete source="tags"></auto-complete>
 				</tags-input>
 			</center>
-			<div ng-repeat="resource in collection.resources" style="border:solid 1px #000;margin:5px;">
-				<h3><input class="plaininput" placeholder="title" ng-model="resource.title"></h3>
-				<p><input class="plaininput" placeholder="descriptive text" ng-model="resource.text"></p>
+			<center ng-show="collection.resources == null">[No resources in this collection]</center>
+			<div ng-repeat="resource in collection.resources" style="border:solid 1px #000;margin:5px;padding:10px;">
+				<h3><input class="plaininput" placeholder="title" ng-model="resource.title" ng-disabled="collection.authorId!==authData.uid"></h3>
+				<p><input class="plaininput" placeholder="descriptive text" ng-model="resource.text" ng-disabled="collection.authorId!==authData.uid"></p>
 				<p><a ng-href="{{resource.link}}" onclick="return false;">
-					<input class="plaininput" placeholder="http://link.to.anywhere" ng-model="resource.link">
+					<input class="plaininput" style="width:40em" placeholder="http://link.to.anywhere" ng-model="resource.link" ng-disabled="collection.authorId!==authData.uid">
 				</a></p>
 			</div>
-			<button ng-click="newresource()">New Resource</button>
+			<button ng-click="newresource()" ng-hide="collection.authorId!==authData.uid">New Resource</button>
 		</div>
 </div>
