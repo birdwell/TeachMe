@@ -40,7 +40,7 @@
                 <span>
                     <ul class="nav navbar-nav login navbar-right">
 						<span ng-show="authData !== null">
-							<li><a ng-href='#/users/{{authData.uid}}'>{{users[authData.uid].email}}</a></li>
+							<li class="btn btn-default" ng-click='window.location.hash="#/users/{{authData.uid}}"'>{{email}}</a></li>
 							<li class="btn btn-default" ng-click="logout()">Log out</li>
 						</span>
             			<span ng-show="authData === null">
