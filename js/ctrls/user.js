@@ -7,6 +7,7 @@ app.controller("TeachmeCtrl",function($scope,$firebaseAuth){
     auth.$onAuth(function(authData){
         console.log("currently",authData);
         $scope.authData = authData;
+		getEmail();
     });
 	
 	$scope.$watch("mode",function(){
@@ -15,6 +16,17 @@ app.controller("TeachmeCtrl",function($scope,$firebaseAuth){
 			$scope.errmsg = null;
 		}
 	},true);
+	
+	function getEmail(){
+		if($scope.authData==null){
+			$scope.email="";
+		}
+		else{
+			ref.child("users/"+$scope.authData.uid+"/email").on("value",function(snapshot){
+				$scope.email = snapshot.val();
+			});
+		}
+	}
 	
     $scope.login = function(){
         if($scope.authData === null){

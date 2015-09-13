@@ -113,7 +113,6 @@ angular.module('myApp.view1', ['ngRoute','firebase','ui.bootstrap.modal','ngTags
 
 	$scope.upvote = function(key){
         var collection = $scope.collections[key];
-        console.log($scope.collections, collection, key)
 		if($scope.authData==null)alert("Log in to do that");
 		else{
             if (collection.upvotes == null) collection.upvotes = {}
