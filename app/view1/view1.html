@@ -2,15 +2,15 @@
     <div class="col-sm-8">
         <!-- FORM -->
         <button class="btn" ng-show="authData !== null" ng-click="showModal=true;resetCollectionForm();">Add Collection</button>
-		
+
 		<div>
 			<div ng-repeat="(key, collection) in collections" style="padding:10px;border:solid 1px #000;">
-				<div ng-click="upvote(collection)" style="display:inline-block;float:right;font-size:2em;cursor:pointer;" ng-style="upvoted(collection) && {'color':'#090'} || {'color':'#000'}"><div>&#9650;</div><div ng-bind="countupvotes(collection)"></div></div>
+				<div ng-click="upvote(key)" style="display:inline-block;float:right;font-size:2em;cursor:pointer;" ng-style="upvoted(collection) && {'color':'#090'} || {'color':'#000'}"><div>&#9650;</div><div ng-bind="countupvotes(collection)"></div></div>
 				<h3><a ng-href="#/collections/{{key}}"> {{collection.title}} </a></h3>
 				<b>by <span ng-bind="users[collection.authorId].email || 'unknown'"></span></b>
 			</div>
 		</div>
-		
+
         <div modal="showModal" class="modal fade" close="showModal=false">
             <div class="modal-dialog">
                 <div class="modal-content">

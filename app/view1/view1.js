@@ -11,30 +11,30 @@ angular.module('myApp.view1', ['ngRoute','firebase','ui.bootstrap.modal','ngTags
 
 .controller('View1Ctrl', ['$scope','$firebaseAuth','$firebaseObject', function($scope, $firebaseAuth,$firebaseObject) {
     var ref = new Firebase('https://shining-fire-6589.firebaseio.com');
-    
+
     $scope.showModal = false;
     $scope.authData = null;
-	
+
 	$firebaseObject(ref.child("collections")).$bindTo($scope,"collections");
 	$firebaseObject(ref.child("users")).$bindTo($scope,"users");
-	
+
     var auth = $firebaseAuth(ref);
 	auth.$onAuth(function(authData){
         console.log("currently",authData);
         $scope.authData = authData;
     });
-	
+
     $scope.tags = [
 		   { text: 'Tag1' },
 		   { text: 'Tag2' },
 		   { text: 'Tag3' }
 		   ];
-	
+
 	$scope.processKeypress = function($event){
 		if($event.which==13)
 			$scope.addCollection();
 	}
-	
+
     $scope.addCollection = function() {
         var collectionInd = generatePushID();
 		$scope.users[$scope.authData.uid].collectionIDs[generatePushID()]=collectionInd;
@@ -47,12 +47,12 @@ angular.module('myApp.view1', ['ngRoute','firebase','ui.bootstrap.modal','ngTags
 			date: Date.now()
 		};
     };
-	
+
 	$scope.resetCollectionForm = function(){
 		$scope.newcollection = {"type":"Reference"};
 	};
 	$scope.resetCollectionForm();
-	
+
 	//https://gist.github.com/mikelehen/3596a30bd69384624c11
 	/**
 	 * Fancy ID generator that creates 20-character string identifiers with the following properties:
@@ -112,18 +112,20 @@ angular.module('myApp.view1', ['ngRoute','firebase','ui.bootstrap.modal','ngTags
 	  };
 	})();
 	//end generatePushID()
-	
-	$scope.upvote = function(collection){
+
+	$scope.upvote = function(key){
+        var collection = $scope.collections[key];
+        console.log($scope.collections, collection, key)
 		if(!$scope.authData)alert("Log in to do that");
 		else{
-			if(!collection.upvotes)collection.upvotes=[];
+            if (collection.upvotes == null) collection.upvotes = {}
 			collection.upvotes[$scope.authData.uid] = !collection.upvotes[$scope.authData.uid];
+            console.log($scope.collections)
+            $scope.collections[key] = collection;
 		}
 	};
 	$scope.countupvotes = function(collection){
-		if(!collection.upvotes)collection.upvotes=[];
-		
-		return Object.keys(collection.upvotes).reduce(function (previous, key) {
+		return Object.keys(collection.upvotes || {}).reduce(function (previous, key) {
 			return previous + collection.upvotes[key];
 		}, 0); //this is brilliant http://stackoverflow.com/a/15748853/1181387
 	};
