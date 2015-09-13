@@ -1,80 +1,49 @@
 <div class="container" ng-controller="CollectionCtrl" ng-class="{'no-edit':collection.authorId!==authData.uid}">
-        <div class="hero hero-collections">
-			<style>
-				:disabled{
-					background:transparent;
-				}
-				tags-input[disabled] .tags .input,tags-input[disabled] .tags .tag-item{
-					opacity:1;
-					border:solid 1px #000;
-					background:#666 !important;
-					background-image:none !important;
-					color:#fff;
-				}
-				tags-input[disabled] .tags{background:white;color:white !important;}
-				
-				.plaininput{
-					border: none;
-					text-align:inherit;
-					overflow:visible;
-					width:20em;
-					max-width:100%;
-				}
-				.plaininput:focus{
-					outline:solid 1px #a9a9a9;
-					border-radius:4px;
-				}
-				.no-edit .plaininput:focus{outline:none;}
-				
-				.tags .tag-list .tag-item{
-					border:solid 1px #000;
-					background:#666;
-					background-image:none;
-					color:#fff;
-				}
-				.tags .tag-list .tag-item a.remove-button{
-					color:#ccc;
-				}
-				.no-edit .tags .tag-list .tag-item a.remove-button{
-					display:none;
-				}
-				.no-edit .tags{box-shadow:none;}
-				.no-edit .host.focused{outline:none;box-shadow:none;border:none;}
-				.no-edit .tags .input{display:none;}
-				.tags .tag-list .tag-item a.remove-button:hover{
-					text-decoration:none;
-				}
-				.tags .tag-list .tag-item a.remove-button:active{
-					color:#000;
-					text-decoration:none;
-				}
-				tags-input div.tags.focused{box-shadow:0 0 3px 1px rgba(0,0,0,0.5);}
-				.no-edit tags-input div.tags{display:inline-block;border:none;}
-				.no-edit tags-input div.tags.focused{box-shadow:none;}
-				.tags{border-radius:4px;}
-			</style>
-            <h1 class="hero-title" style="color:#93c54b;"><input class="plaininput" ng-model="collection.title" ng-disabled="collection.authorId!==authData.uid"></h1>
-            <h2 class="hero-description"><input class="plaininput" ng-model="collection.desc" ng-disabled="collection.authorId!==authData.uid"></h2>
-			<center>
-				<select class="plaininput form-control" style="width:9em;padding-right:0;overflow:visible;border-radius:4px;" ng-model="collection.type" ng-hide="collection.authorId!==authData.uid">
-					<option>Reference</option>
-					<option>Track</option>
-				</select>
-				<span ng-show="collection.authorId!==authData.uid">{{collection.type}}</span>
-			</center>
-			<center>
-				<tags-input style="width:25em;" ng-model="collection.tags" add-on-paste="true" ng-disabled="collection.authorId!==authData.uid">
-				  <auto-complete source="tags"></auto-complete>
-				</tags-input>
-			</center>
-			<center ng-show="collection.resources == null" style="margin-top:2em;margin-bottom:2em;">[No resources in this collection]</center>
-			<div ng-repeat="resource in collection.resources" style="border:solid 1px #000;margin:5px;padding:10px;">
-				<h3><input class="plaininput" placeholder="title" ng-model="resource.title" ng-disabled="collection.authorId!==authData.uid"></h3>
-				<p><input class="plaininput" placeholder="descriptive text" ng-model="resource.text" ng-disabled="collection.authorId!==authData.uid"></p>
-				<p><a ng-href="{{resource.link}}" onclick="return false;">
-					<input class="plaininput" style="width:40em" placeholder="http://link.to.anywhere" ng-model="resource.link" ng-disabled="collection.authorId!==authData.uid">
-				</a></p>
-			</div>
-			<button class="btn btn-success" ng-click="newresource()" ng-hide="collection.authorId!==authData.uid">New Resource</button>
-		</div>
+    <div class="col-sm-12">
+        <link rel="stylesheet" href="css/collections.css" media="screen" charset="utf-8">
+        <h1 class="hero-title" style="color:#93c54b;">
+            <input class="plaininput" ng-model="collection.title" ng-disabled="collection.authorId!==authData.uid">
+        </h1>
+        <h2 class="hero-description">
+            <input class="plaininput" ng-model="collection.desc" ng-disabled="collection.authorId!==authData.uid">
+        </h2>
+        <center>
+            <select class="plaininput form-control" style="width:9em;padding-right:0;overflow:visible;border-radius:4px;" ng-model="collection.type" ng-hide="collection.authorId!==authData.uid">
+                <option>Reference</option>
+                <option>Track</option>
+            </select>
+            <span ng-show="collection.authorId!==authData.uid">{{collection.type}}</span>
+        </center>
+        <center>
+            <tags-input style="width:25em;" ng-model="collection.tags" add-on-paste="true" ng-disabled="collection.authorId!==authData.uid">
+                <auto-complete source="tags"></auto-complete>
+            </tags-input>
+        </center>
+        <center ng-show="collection.resources == null" style="margin-top:2em;margin-bottom:2em;">[No resources in this collection]</center>
+        <div class='row resources'>
+            <div ng-repeat="resource in collection.resources" class='col-md-4'>
+                <div class="card">
+                    <div class="card-block">
+                        <h3>
+                            <input class="plaininput card-title" placeholder="title" ng-model="resource.title" ng-disabled="collection.authorId!==authData.uid">
+                        </h3>
+                        <span class='card-text'>
+                            <p>
+                                <input class="plaininput " placeholder="descriptive text" ng-model="resource.text" ng-disabled="collection.authorId!==authData.uid">
+                            </p>
+                            <p>
+                                <a class="resourceLink" ng-href="{{resource.link}}" onclick="return false;">
+                                    <input class="plaininput" style="width:40em" placeholder="http://link.to.anywhere" ng-model="resource.link" ng-disabled="collection.authorId!==authData.uid">
+                                </a>
+                                <a ng-hide="resource == null" class="btn learn btn-success" ng-href="{{resource.link}}">
+                                    Learn
+                                </a>
+                            </p>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-success" ng-click="newresource()" ng-hide="collection.authorId!==authData.uid">New Resource</button>
+    </div>
 </div>
