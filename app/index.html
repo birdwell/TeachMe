@@ -34,15 +34,18 @@
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#/view1">view1</a></li>
+                    <li class="active"><a href="#/view1">Home</a></li>
                     <li><a href="#/view2">view2</a></li>
+                    <li><a ng-show='authData !== null' ng-href='#/profile/{{authData.uid}}'>Profile</a></li>
                 </ul>
-                <form class="navbar-form navbar-left" role="search">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
-                    </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
-                </form>
+                <span ng-controller="TeachmeCtrl">
+                    <form class="navbar-form navbar-left"  role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                        <button type="submit" ng-click="go('#/search.html')" class="btn btn-default">Submit</button>
+                    </form>
+                </span>
                 <span>
                     <ul class="nav navbar-nav login navbar-right">
             			<li class="btn btn-default" ng-click="logout()" ng-show="authData !== null">Log out</li>
@@ -100,6 +103,7 @@
     <!-- AngularFire -->
     <script src="https://cdn.firebase.com/libs/angularfire/1.1.2/angularfire.min.js"></script>
     <script src="js/ctrls/user.js"></script>
+    <script type="search/search.js"></script>
     <script src="app.js"></script>
     <script src="view1/view1.js"></script>
     <script src="view2/view2.js"></script>
