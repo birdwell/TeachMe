@@ -30,6 +30,9 @@ angular.module('myApp.collection', ['ngRoute'])
             for (var i = 0; i < collection.resources.length; i++) {
                 if(collection.resources[i].$$hashKey == resource.$$hashKey){
                     collection.resources.splice(i,1);
+                    if(collection.resources == null){
+                        $scope.collection.resources=[];
+                    }
                 }
             }
 
