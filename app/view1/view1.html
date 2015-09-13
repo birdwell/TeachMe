@@ -1,7 +1,7 @@
 <div class="container" ng-controller="View1Ctrl">
     <div class="col-sm-8">
         <!-- FORM -->
-        <button class="btn" ng-show="authData !== null" ng-click="showModal=true;resetCollectionForm();">Add Collection</button>
+        <button class="btn btn-success addCollection" ng-show="authData !== null" ng-click="showModal=true;resetCollectionForm();">Add Collection</button>
 
         <div>
             <div class='collections' ng-repeat="(key, collection) in collections">
@@ -14,13 +14,11 @@
                         </div>
                     </div>
                     <div class="card-block">
-                        <h4 class="card-title"><a ng-href="#/collections/{{key}}"> {{collection.title}} </a></h4>
+                        <h4 class="card-title"><a ng-href="#/collections/{{key}}"> {{collection.title}} </a> by <span ng-bind="users[collection.authorId].email || 'unknown'"></span></h4>
                         <p class="card-text">
                             {{collection.desc}}
                             <br/>
                             <span class="tags"><a ng-repeat="tag in collection.tags" ng-href="#/tags/{{tag.text}}" class="tag">{{tag.text}}</a></span>
-                            <br/>
-                            <b>by <span ng-bind="users[collection.authorId].email || 'unknown'"></span></b>
                         </p>
                     </div>
                 </div>

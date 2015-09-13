@@ -250,3 +250,8 @@ ul.login {
     background:#777;
 }
 .tags .tag:active{color:#fff;}
+
+button.btn.addCollection {
+    margin: 20px;
+    margin-left: 0px;
+}
