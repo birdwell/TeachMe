@@ -1,8 +1,8 @@
 var app = angular.module("TeachmeApp",["firebase",'ui.bootstrap.modal']);
 app.controller("TeachmeCtrl",function($scope,$firebaseAuth){
     var ref = new Firebase("https://shining-fire-6589.firebaseio.com/");
-    var auth = $firebaseAuth(ref);
-
+    
+	var auth = $firebaseAuth(ref);
     $scope.authData = null;
     auth.$onAuth(function(authData){
         console.log("currently",authData);

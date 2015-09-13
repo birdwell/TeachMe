@@ -11,15 +11,15 @@ angular.module('myApp.view1', ['ngRoute','firebase','ui.bootstrap.modal','ngTags
 
 .controller('View1Ctrl', ['$scope','$firebaseAuth','$firebaseObject', function($scope, $firebaseAuth,$firebaseObject) {
     var ref = new Firebase('https://shining-fire-6589.firebaseio.com');
-    var auth = $firebaseAuth(ref);
-	
+    
     $scope.showModal = false;
     $scope.authData = null;
 	
 	$firebaseObject(ref.child("collections")).$bindTo($scope,"collections");
 	$firebaseObject(ref.child("users")).$bindTo($scope,"users");
 	
-    auth.$onAuth(function(authData){
+    var auth = $firebaseAuth(ref);
+	auth.$onAuth(function(authData){
         console.log("currently",authData);
         $scope.authData = authData;
     });
@@ -34,28 +34,24 @@ angular.module('myApp.view1', ['ngRoute','firebase','ui.bootstrap.modal','ngTags
 		if($event.which==13)
 			$scope.addCollection();
 	}
-
+	
     $scope.addCollection = function() {
-        var title = $scope.newcollection.title;
-        var type = $scope.newcollection.type;
-        var desc = $scope.newcollection.description;
-        var tags = $scope.newcollection.tags;
-        if ($scope.authData) {
-          console.log("Authenticated user with uid:", $scope.authData.uid);
-        }
-
-		var ind = generatePushID();
-		$scope.collections[ind] = {
-			title: title,
-			type: type,
-			desc: desc || '',
-			tags: tags || [],
+        var collectionInd = generatePushID();
+		$scope.users[$scope.authData.uid].collectionIDs[generatePushID()]=collectionInd;
+		$scope.collections[collectionInd] = {
+			title: $scope.newcollection.title,
+			type: $scope.newcollection.type,
+			desc: $scope.newcollection.description || '',
+			tags: $scope.newcollection.tags || [],
 			authorId: $scope.authData.uid,
 			date: Date.now()
 		};
-		
-		$scope.users[$scope.authData.uid].collectionIDs[generatePushID()]=ind;
     };
+	
+	$scope.resetCollectionForm = function(){
+		$scope.newcollection = {"type":"Reference"};
+	};
+	$scope.resetCollectionForm();
 	
 	//https://gist.github.com/mikelehen/3596a30bd69384624c11
 	/**
@@ -119,13 +115,10 @@ angular.module('myApp.view1', ['ngRoute','firebase','ui.bootstrap.modal','ngTags
 	
 	$scope.upvote = function(collection){
 		if(!$scope.authData)alert("Log in to do that");
-		
-		if(!collection.upvotes)collection.upvotes=[];
-		
-		if(collection.upvotes[$scope.authData.uid])
-			collection.upvotes[$scope.authData.uid] = 0;
-		else
-			collection.upvotes[$scope.authData.uid] = 1;
+		else{
+			if(!collection.upvotes)collection.upvotes=[];
+			collection.upvotes[$scope.authData.uid] = !collection.upvotes[$scope.authData.uid];
+		}
 	};
 	$scope.countupvotes = function(collection){
 		if(!collection.upvotes)collection.upvotes=[];
@@ -137,8 +130,4 @@ angular.module('myApp.view1', ['ngRoute','firebase','ui.bootstrap.modal','ngTags
 	$scope.upvoted = function(collection){
 		return $scope.authData && collection.upvotes && collection.upvotes[$scope.authData.uid];
 	};
-	$scope.resetCollectionForm = function(){
-		$scope.newcollection = {"type":"Reference"};
-	};
-	$scope.resetCollectionForm();
 }])

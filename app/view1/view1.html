@@ -5,7 +5,7 @@
 		
 		<div>
 			<div ng-repeat="(key, collection) in collections" style="padding:10px;border:solid 1px #000;">
-				<div style="display:inline-block;float:right;font-size:2em;"><div ng-click="upvote(collection)" ng-style="upvoted(collection) && {'color':'#990'} || {'color':'#000'}" style="cursor:pointer;">&#9650;</div><div ng-bind="countupvotes(collection)"></div></div>
+				<div ng-click="upvote(collection)" style="display:inline-block;float:right;font-size:2em;cursor:pointer;" ng-style="upvoted(collection) && {'color':'#090'} || {'color':'#000'}"><div>&#9650;</div><div ng-bind="countupvotes(collection)"></div></div>
 				<h3><a ng-href="#/collections/{{key}}"> {{collection.title}} </a></h3>
 				<b>by <span ng-bind="users[collection.authorId].email || 'unknown'"></span></b>
 			</div>
@@ -40,7 +40,7 @@
 							<div class="form-group">
                                 <label>Tags: </label>
                                 <tags-input ng-model="newcollection.tags" add-on-paste="true">
-								  <auto-complete source="loadTags($query)"></auto-complete>
+								  <auto-complete source="tags"></auto-complete>
 								</tags-input>
                             </div>
 						</div>
