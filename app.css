@@ -42,7 +42,7 @@ ul.login {
     position: relative;
     margin-bottom: .75rem;
     background-color: #fff;
-    border: .0625rem solid #e5e5e5;
+    border: .0625rem solid rgba(103, 103, 103, 0.85);
     border-radius: .25rem;
     max-width: 350px;
     height: 220px;
@@ -74,8 +74,9 @@ ul.login {
 }
 .card-header {
     padding: .75rem 1.25rem;
-    background-color: #f5f5f5;
-    border-bottom: .0625rem solid #e5e5e5;
+    background-color: rgba(62, 63, 58, 0.85);
+    border-bottom: .0625rem solid rgba(62, 63, 58, 0.85);
+    color: white;
 }
 .card-header:first-child {
     border-radius: .1875rem .1875rem 0 0;
@@ -237,13 +238,10 @@ ul.login {
     padding:0 5px;
     border-radius:3px;
     margin:2px;
-
-    border:solid 1px #000;
+    border: solid 1px #656565;
     background:#666;
     color:#fff;
-
     text-decoration:none;
-
     transition:background 0.4s;
 }
 .tags .tag:hover{
