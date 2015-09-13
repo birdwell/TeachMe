@@ -265,3 +265,11 @@ button.btn.addCollection {
 	font-size: 2em;
 	margin-top:0;
 }
+
+#bgimg{
+	width:80%;
+	margin-left:10%;
+	position:fixed;
+	top:20%;
+	opacity:0.1;
+}

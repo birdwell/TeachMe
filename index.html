@@ -20,6 +20,7 @@
 </head>
 
 <body ng-controller="TeachmeCtrl">
+	<img id="bgimg" src="mteach_logo_green.png">
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -29,7 +30,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#/view1">MTeach</a>
+                <a class="navbar-brand" href="#/view1" style="padding:0;"><img src="mteach_logo_white_small.png" style="height:3em;margin:0.2em;"></a>
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -40,7 +41,7 @@
                 <span>
                     <ul class="nav navbar-nav login navbar-right">
 						<span ng-show="authData !== null">
-							<li class="btn btn-default" ng-click='window.location.hash="#/users/{{authData.uid}}"'>{{email}}</a></li>
+							<a href="#/users/{{authData.uid}}"><li class="btn btn-default">{{email}}</li></a>
 							<li class="btn btn-default" ng-click="logout()">Log out</li>
 						</span>
             			<span ng-show="authData === null">
