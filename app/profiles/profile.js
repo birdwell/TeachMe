@@ -14,7 +14,7 @@ angular.module('myApp.profile', ['ngRoute'])
         $scope.title = '';
 
         //Get ID out of current URL
-        var ref = new Firebase('https://shining-fire-6589.firebaseio.com/collections/' + $routeParams.collectionId);
+        var ref = new Firebase('https://shining-fire-6589.firebaseio.com/profiles/' + $routeParams.profileId);
         ref.on("value", function(snapshot) {
             var profile = snapshot.val();
             $scope.title = profile.title;
