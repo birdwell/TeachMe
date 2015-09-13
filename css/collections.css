@@ -72,4 +72,5 @@ a.btn.learn.btn-success {
 }
 .deleteResource{
     float: right;
+    cursor: pointer;
 }

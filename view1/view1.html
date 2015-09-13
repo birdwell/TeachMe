@@ -7,6 +7,7 @@
             <div class='collections col-md-4' ng-repeat="(key, collection) in collections">
                 <div class="card">
                     <div class="card-header">
+                        <span class="glyphicon glyphicon-remove deleteCollection" ng-click="deleteCollection(key, collections)"aria-hidden="true" ng-hide="collection.authorId!==authData.uid"></span>
                         {{collection.type}}
                         <div style="cursor:pointer;" ng-click="upvote(key)" class="upvote" ng-style="upvoted(collection) && {'color':'#93c54b'} || {'color':'#fff'}">
                             <span class="arrow">&#9650;</span>

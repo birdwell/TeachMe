@@ -128,4 +128,8 @@ angular.module('myApp.view1', ['ngRoute','firebase','ui.bootstrap.modal','ngTags
 	$scope.upvoted = function(collection){
 		return $scope.authData && collection.upvotes && collection.upvotes[$scope.authData.uid];
 	};
+
+    $scope.deleteCollection = function(key, collections){
+        delete collections[key];
+    }
 }])
