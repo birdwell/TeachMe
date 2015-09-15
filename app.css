@@ -208,6 +208,8 @@ ul.login {
     float: right;
     position: relative;
     bottom: 12px;
+	padding: 0 0.8em 0;
+	margin-right:-1.3em;
 }
 .upvote .arrow {
     font-size: 1em;
